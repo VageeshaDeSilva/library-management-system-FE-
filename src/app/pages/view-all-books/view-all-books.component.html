@@ -1,1 +1,50 @@
-<p>view-all-books works!</p>
+<h2 class="mb-5">All Books That We have,</h2>
+<div class="table-responsive">
+    <table class="table custom-table" *ngIf="bookList">
+        <thead>
+            <tr>
+                <th scope="col-1">ID</th>
+                <th scope="col-1">Book ID</th>
+                <th scope="col-3">Name</th>
+                <th scope="col-3">Author</th>
+                <th scope="col-2">Category</th>
+                <th scope="col-1">QTY</th>
+                <th scope="col-1"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of bookList">
+                <td>{{book.id}}</td>
+                <td>{{book.bid}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.category}}</td>
+                <td>{{book.qty}}</td>
+                <td><button (click)="nowBook(book)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger removeBtn"><i
+                            class="bi bi-trash-fill "></i></button>&nbsp;
+                    <button (click)="editBtnOnClick()" class="btn btn-success editBtn"><i
+                            class="bi bi-pencil-square"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Warning <i class="bi bi-exclamation-triangle"></i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to delete this Book ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No Thanks</button>
+                    <button type="button" class="btn btn-danger" (click)="removeBtnOnClick()" data-bs-dismiss="modal">Yes, Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
