@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-all-books',
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class ViewAllBooksComponent implements OnInit {
   private http;
   public bookList: any = {};
-  private book: any;
+  public book: any;
 
   constructor(private httpClient: HttpClient) {
     this.http = httpClient;
@@ -23,7 +24,7 @@ export class ViewAllBooksComponent implements OnInit {
     this.loadBooks();
   }
 
-  nowBook(nowbook: any) {
+  setBook(nowbook: any) {
     this.book = nowbook;
   }
 
@@ -40,11 +41,28 @@ export class ViewAllBooksComponent implements OnInit {
       })
       .subscribe((data: string) => {
         this.loadBooks();
+        // (Successfully deleted) alert box
+        Swal.fire({
+          title: 'Successfully deleted!',
+          text: `you deleted "${this.book.name}" book right now! `,
+          icon: 'success',
+        });
         this.book = null;
       });
   }
 
   editBtnOnClick() {
-    alert('edit');
+    this.http
+      .post('http://localhost:8080/book/addBook', this.book)
+      .subscribe((data) => {
+        this.loadBooks();
+        // (Successfully updated) alert box
+        Swal.fire({
+          title: 'Successfully updated!',
+          text: `you updated "${this.book.name}" book right now! `,
+          icon: 'success',
+        });
+        this.book = null;
+      });
   }
 }

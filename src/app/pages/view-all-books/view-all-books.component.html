@@ -20,31 +20,71 @@
                 <td>{{book.author}}</td>
                 <td>{{book.category}}</td>
                 <td>{{book.qty}}</td>
-                <td><button (click)="nowBook(book)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger removeBtn"><i
+                <td><button (click)="setBook(book)" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger removeBtn"><i
                             class="bi bi-trash-fill "></i></button>&nbsp;
-                    <button (click)="editBtnOnClick()" class="btn btn-success editBtn"><i
+                    <button (click)="setBook(book)" data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-success editBtn"><i
                             class="bi bi-pencil-square"></i></button>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Warning <i class="bi bi-exclamation-triangle"></i></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Do you want to delete this Book ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No Thanks</button>
-                    <button type="button" class="btn btn-danger" (click)="removeBtnOnClick()" data-bs-dismiss="modal">Yes, Delete</button>
-                </div>
+<!--Delete btn Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Warning <i class="bi bi-exclamation-triangle"></i></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete "{{book?.name}}" ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No Thanks</button>
+                <button type="button" class="btn btn-danger" (click)="removeBtnOnClick()" data-bs-dismiss="modal">Yes, Delete</button>
             </div>
         </div>
     </div>
+</div>
+
+<!-- edit btn modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editModalLabel">edit book details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">ID:</label>
+            <input type="text" value={{book?.bid}} disabled class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" [(ngModel)]="book && book.name" [ngModelOptions]="{standalone:true}" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Author:</label>
+            <input type="text" [(ngModel)]="book && book.author" [ngModelOptions]="{standalone:true}" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Category:</label>
+            <input type="text" [(ngModel)]="book && book.category" [ngModelOptions]="{standalone:true}" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">QTY:</label>
+            <input type="number" [(ngModel)]="book && book.qty" [ngModelOptions]="{standalone:true}" class="form-control" id="recipient-name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="loadBooks()" data-bs-dismiss="modal">No Thanks</button>
+        <button type="button" (click)="editBtnOnClick()" class="btn btn-success" data-bs-dismiss="modal">Update</button>
+      </div>
+    </div>
+  </div>
 </div>
