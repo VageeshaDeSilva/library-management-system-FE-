@@ -10,7 +10,7 @@
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a class="nav-link px-2 link-secondary" [routerLink]="['/']">Home</a></li>
-        <li><a class="nav-link px-2" [routerLink]="['/viewAllBooks']">View All Books</a></li>
+        <li><a class="nav-link px-2" [routerLink]="['/viewAllBooks']">Books</a></li>
         <li><a class="nav-link px-2">Pricing</a></li>
         <li><a class="nav-link px-2">FAQs</a></li>
         <li><a class="nav-link px-2">About</a></li>
@@ -18,6 +18,6 @@
 
     <div class="col-md-3 text-end">
         <button type="button" class="btn btn-outline-primary me-2" [routerLink]="['/login']">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <button type="button" class="btn btn-primary" [routerLink]="['/signUp']">Sign-up</button>
     </div>
 </header>
