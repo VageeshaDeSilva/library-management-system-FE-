@@ -34,6 +34,10 @@ export class ViewAllBooksComponent implements OnInit {
     });
   }
 
+  addBook(){
+    alert("book added");
+  }
+
   removeBtnOnClick() {
     this.http
       .delete(`http://localhost:8080/book/deleteBook/${this.book.id}`, {

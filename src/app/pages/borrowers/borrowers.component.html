@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="row">
+    <div class="row mb-5 ">
+      <h2 class="col-6 ">All Borrowers That We have,</h2>
+      <button (click)="addBorrower()" class="col-6 addBorrowersLabel"style="border-style: none; outline-style: none; background: none;"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+      </svg>Add Borrower</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="table-responsive container ">
+      <table class="table custom-table" *ngIf="borrowerList">
+        <thead>
+          <tr>
+            <th scope="col-1">ID</th>
+            <th scope="col-3">Name</th>
+            <th scope="col-3">NIC</th>
+            <th scope="col-2">Contacts</th>
+            <th scope="col-1">Address</th>
+            <th scope="col-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let borrower of borrowerList">
+            <td>{{ borrower.id }}</td>
+            <td>{{ borrower.name }}</td>
+            <td>{{ borrower.nic }}</td>
+            <td>{{ borrower.contacts }}</td>
+            <td>{{ borrower.address }}</td>
+            <td>
+              <button (click)="setBorrower(borrower)" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                class="btn btn-danger removeBtn">
+                <i class="bi bi-trash-fill"></i></button>&nbsp;
+              <button (click)="setBorrower(borrower)" data-bs-toggle="modal" data-bs-target="#editModal"
+                class="btn btn-success editBtn">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--Delete btn Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleteModalLabel">
+              Warning <i class="bi bi-exclamation-triangle"></i>
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">Do you want to delete "{{ borrower?.name }}" ?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              No Thanks
+            </button>
+            <button type="button" class="btn btn-danger" (click)="removeBtnOnClick()" data-bs-dismiss="modal">
+              Yes, Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- edit btn modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editModalLabel">edit borrower details</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">ID:</label>
+                <input type="text" value="{{ borrower?.id }}" disabled class="form-control" id="recipient-name" />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Name:</label>
+                <input type="text" [(ngModel)]="borrower && borrower.name" [ngModelOptions]="{ standalone: true }"
+                  class="form-control" id="recipient-name" />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">NIC:</label>
+                <input type="text" [(ngModel)]="borrower && borrower.nic" [ngModelOptions]="{ standalone: true }"
+                  class="form-control" id="recipient-name" />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Contacts:</label>
+                <input type="text" [(ngModel)]="borrower && borrower.contacts" [ngModelOptions]="{ standalone: true }"
+                  class="form-control" id="recipient-name" />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Address:</label>
+                <input type="text" [(ngModel)]="borrower && borrower.address" [ngModelOptions]="{ standalone: true }"
+                  class="form-control" id="recipient-name" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="loadBorrowers()" data-bs-dismiss="modal">
+              No Thanks
+            </button>
+            <button type="button" (click)="editBtnOnClick()" class="btn btn-success" data-bs-dismiss="modal">
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
